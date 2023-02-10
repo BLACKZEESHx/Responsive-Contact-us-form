@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Responsive Contact us form Using HTML and CSS</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	
+<div class="wrapper">
+  <div class="title">
+    <h1>contact us form</h1>
+  </div>
+  <div class="contact-form">
+    <div class="input-fields">
+      <input type="text" id="name" class="input" placeholder="Name">
+      <input type="text" id="email" class="input" placeholder="Email Address">
+      <input type="text" id="phone" class="input" placeholder="Phone">
+      <input type="text" id="subject" class="input" placeholder="Subject">
+    </div>
+    <div class="msg">
+      <textarea id="message" placeholder="Message"></textarea>
+      <button type="button" class="btn" onclick="sendEmail()">send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function sendEmail() {
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const subject = document.getElementById("subject").value;
+    const message = document.getElementById("message").value;
+    
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "sendemail.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+        console.log("Email sent!");
+      }
+    };
+    xhr.send(`name=${name}&email=${email}&phone=${phone}&subject=${subject}&message=${message}`);
+  }
+</script>
+	
+</body>
+</html>
